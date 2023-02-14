@@ -32,6 +32,19 @@ function BaseInterface() {
     reader.readAsArrayBuffer(fileObj)
   }
 
+  const handleDemoClick = event => {
+    async function showFile () {
+      // Read the output file
+      const response = await fetch('./Example1.out')
+      await response.arrayBuffer()
+        .then((arrBuf)=>{
+          setArrBuf(arrBuf)
+      })
+    }
+
+    showFile()
+  }
+
   return (
     <div className="App">
       <header className="App-header">
@@ -42,7 +55,8 @@ function BaseInterface() {
           onChange={handleFileChange}
         />
         <div className='demoTab'>
-          <button className='demoTabLink'style={{width: '100%'}} onClick={handleClick}>Select .out file</button>
+          <button className='demoTabLink'style={{width: '50%', border: '3px solid gray'}} onClick={handleClick}>Select .out file</button>
+          <button className='demoTabLink'style={{width: '50%', border: '3px solid gray'}} onClick={handleDemoClick}>Use demo Example1.out</button>
         </div>
         <h3>.OUT file in text format:</h3>
           {
