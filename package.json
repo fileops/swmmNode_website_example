@@ -2,6 +2,7 @@
   "name": "swmmnode_website_example",
   "version": "0.1.0",
   "private": true,
+  "homepage": ".",
   "dependencies": {
     "@swmm-js/swmm-node": "^0.0.6",
     "@testing-library/jest-dom": "^5.16.5",
