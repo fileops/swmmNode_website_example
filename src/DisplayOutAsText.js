@@ -3,20 +3,13 @@ import { SwmmOut } from "@swmm-js/swmm-node"
 /*eslint-disable*/
 //@ts-ignore
 
-export default function DisplayOutAsText() {
+export default function DisplayOutAsText({arrBuf}) {
 const [outText, setOutText] = useState('')
-const [outFile, setOutFile] = useState('./Example1.out')
-// Change the following line to the name of your .out
-// file and place your .out file in the src directory.
-// For a more complex file structure, you should make an 
-// input folder and place your .out files there.
 
-// Read in the .out file and process the results.
-useEffect(()=>{fetch(outFile)
-  .then((r) => r.arrayBuffer())
-  .then(arrBuff => { 
-processOut(arrBuff)
-})}, outFile)
+useEffect(()=>{
+  let outString = processOut(arrBuf)
+  setOutText(outString)
+}, [arrBuf])
 
 
 // Process an array buffer. This is usually the 
@@ -26,15 +19,15 @@ function processOut(arrBuff) {
   let example1 = new SwmmOut(arrBuff)
 
   // Process all sections of the .out file.
-  let outString 
-             = stringOpeningRecords   (example1)
-  outString += stringObjectIDs        (example1)
-  outString += stringObjectProperties (example1)
-  outString += stringReportingInterval(example1)
-  outString += stringComputedResults  (example1)
-  outString += stringClosingRecords   (example1)
+  let outString =
+    stringOpeningRecords     (example1)
+    + stringObjectIDs        (example1)
+    + stringObjectProperties (example1)
+    + stringReportingInterval(example1)
+    + stringComputedResults  (example1)
+    + stringClosingRecords   (example1)
 
-  setOutText(outString)
+    return outString
 }
 
 /**
