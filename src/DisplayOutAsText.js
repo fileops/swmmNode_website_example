@@ -1,3 +1,5 @@
+// DisplayOutAsText.js
+
 import { useState, useEffect } from "react"
 import { SwmmOut } from "@swmm-js/swmm-node"
 /*eslint-disable*/
@@ -437,7 +439,7 @@ function stringSystemResults(outObj){
 
 return (
   <>
-  <pre>
+  <pre style={{margin: '10px', overflow:'scroll'}}>
     {outText}
   </pre>
   </>
