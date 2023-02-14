@@ -3,6 +3,7 @@
 import './App.css'
 import DisplayOutAsText from './DisplayOutAsText'
 import {useRef, useState} from 'react'
+import { SwmmOut } from "@swmm-js/swmm-node"
 
 function BaseInterface() {
   const inputRef = useRef(null)
@@ -10,7 +11,7 @@ function BaseInterface() {
   // file and place your .out file in the src directory.
   // For a more complex file structure, you should make an 
   // input folder and place your .out files there.
-  const [arrBuf, setArrBuf] = useState()
+  const [swmmObj, setSwmmObj] = useState(null)
 
   const handleClick = () => {
     // open file input box on click.
@@ -26,8 +27,8 @@ function BaseInterface() {
   
     const reader = new FileReader()
     reader.onload = (e) => {
-      const arrBuf = e.target.result
-      setArrBuf(arrBuf)
+      const res = e.target.result
+      setSwmmObj(new SwmmOut(res))
     }
     reader.readAsArrayBuffer(fileObj)
   }
@@ -37,11 +38,10 @@ function BaseInterface() {
       // Read the output file
       const response = await fetch('./Example1.out')
       await response.arrayBuffer()
-        .then((arrBuf)=>{
-          setArrBuf(arrBuf)
+        .then((res)=>{
+          setSwmmObj(new SwmmOut(res))
       })
     }
-
     showFile()
   }
 
@@ -59,10 +59,7 @@ function BaseInterface() {
           <button className='demoTabLink'style={{width: '50%', border: '3px solid gray'}} onClick={handleDemoClick}>Use demo Example1.out</button>
         </div>
         <h3>.OUT file in text format:</h3>
-          {
-            arrBuf &&
-            <DisplayOutAsText arrBuf={arrBuf} />
-          }
+        <DisplayOutAsText swmmData={swmmObj} />
       </header>
     </div>
   );

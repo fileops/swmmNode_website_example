@@ -1,12 +1,15 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import './index.css'
+import { StrictMode } from "react";
 import reportWebVitals from './reportWebVitals'
 import Demo_swmmNode_react from './Demo_swmmNode_react'
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-    <Demo_swmmNode_react />
+    <StrictMode>
+        <Demo_swmmNode_react />
+    </StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function

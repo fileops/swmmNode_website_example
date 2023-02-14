@@ -1,33 +1,31 @@
 // DisplayOutAsText.js
-
-import { useState, useEffect } from "react"
 import { SwmmOut } from "@swmm-js/swmm-node"
-/*eslint-disable*/
-//@ts-ignore
+import { useState, useEffect } from "react"
 
-export default function DisplayOutAsText({arrBuf}) {
-const [outText, setOutText] = useState('')
+export default function DisplayOutAsText({swmmData}) {
+const [outText, setOutText] = useState()
 
 useEffect(()=>{
-  let outString = processOut(arrBuf)
-  setOutText(outString)
-}, [arrBuf])
+  let result = ''
+  if(swmmData != null)
+    result = processOut(swmmData)
+  setOutText(result)
+}, [swmmData])
 
 
 // Process an array buffer. This is usually the 
 // buffer contents of a .out file.
-function processOut(arrBuff) {
+function processOut(swmmData) {
   // Create a swmmOut oubject from the contents of the .out file.
-  let example1 = new SwmmOut(arrBuff)
 
   // Process all sections of the .out file.
   let outString =
-    stringOpeningRecords     (example1)
-    + stringObjectIDs        (example1)
-    + stringObjectProperties (example1)
-    + stringReportingInterval(example1)
-    + stringComputedResults  (example1)
-    + stringClosingRecords   (example1)
+    stringOpeningRecords     (swmmData)
+    + stringObjectIDs        (swmmData)
+    + stringObjectProperties (swmmData)
+    + stringReportingInterval(swmmData)
+    + stringComputedResults  (swmmData)
+    + stringClosingRecords   (swmmData)
 
     return outString
 }
@@ -197,7 +195,7 @@ function simpleLine(val, section, content) {
  * @return: {string} String representation of the opening records section of a swmm.out file.
  */
 function stringOpeningRecords(outObj){
-  let section = SwmmOut.sections[0].name += '\n'
+  let section = SwmmOut.sections[0].name + '\n'
     + headerLine()
     + simpleLine(intString(outObj.magic1()),        0, 0)
     + simpleLine(intString(outObj.version()),       0, 1)
@@ -217,7 +215,7 @@ function stringOpeningRecords(outObj){
  * @return: {string} String representation of the closing records section of a swmm.out file.
  */
 function stringClosingRecords(outObj){
-  let section = SwmmOut.sections[6].name += '\n'
+  let section = SwmmOut.sections[6].name + '\n'
     + headerLine()
     + simpleLine(intString(outObj.objectIDNames()),    6, 0)
     + simpleLine(intString(outObj.objectProperties()), 6, 1)
@@ -236,7 +234,7 @@ function stringClosingRecords(outObj){
  * @return: {string} String representation of the cObject IDs section of a swmm.out file.
  */
 function stringObjectIDs(outObj){
-  let section = SwmmOut.sections[1].name += '\n'
+  let section = SwmmOut.sections[1].name + '\n'
     + headerLine()
     + subHeader('Subcatchments')
     + columnHeaders([['index', 16], ['ID', 24]])
@@ -268,7 +266,7 @@ function stringObjectIDs(outObj){
  * @return: {string} String representation of the cObject Properties section of a swmm.out file.
  */
 function stringObjectProperties(outObj){
-  let section = SwmmOut.sections[2].name += '\n'
+  let section = SwmmOut.sections[2].name + '\n'
     + headerLine()
     + subHeader('Subcatchments')
     + columnHeaders([['index', 16], ['ID', 16], ['Area', 16]])
@@ -310,7 +308,7 @@ function stringObjectProperties(outObj){
  * @return: {string} String representation of the Reporting Interval section of a swmm.out file.
  */
 function stringReportingInterval(outObj){
-  let section = SwmmOut.sections[4].name += '\n'
+  let section = SwmmOut.sections[4].name + '\n'
     + headerLine()
     + simpleLine(stringString(outObj.swmmStepToDate(0)),     4, 0)
     + simpleLine(stringString(outObj.timeStep().toString()), 4, 1)
@@ -325,7 +323,7 @@ function stringReportingInterval(outObj){
  * @return: {string} String representation of the Computed Results section of a swmm.out file.
  */
 function stringComputedResults(outObj){
-  let section = SwmmOut.sections[5].name += '\n'
+  let section = SwmmOut.sections[5].name + '\n'
     + headerLine()
     + stringSubcatchmentResults(outObj)
     + stringNodeResults(outObj)
@@ -437,11 +435,15 @@ function stringSystemResults(outObj){
   return section;
 }
 
-return (
-  <>
-  <pre style={{margin: '10px', overflow:'scroll'}}>
-    {outText}
-  </pre>
-  </>
+if(outText)
+  return (
+    <>
+    <pre style={{margin: '10px', overflow:'scroll'}}>
+      {outText}
+    </pre>
+    </>
+  )
+else return (
+  <></>
 )
 }
