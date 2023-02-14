@@ -32,8 +32,8 @@ const Demo_swmmNode_react = () => {
       <h2>Demo Controls</h2>
       <BaseInterface />
 
-      <h2>Example swmmReact code</h2>
-      <p>The following code window displays an example way to use this component.</p>
+      <h2>Example swmmNode code</h2>
+      <p>The following code window displays an example way to use swmmNode to format and display .out file contents in text format.</p>
       <SyntaxHighlighter language='javascript' style={codeStyle} showLineNumbers={true}>
         {useDidMount.default.toString()}
       </SyntaxHighlighter>
