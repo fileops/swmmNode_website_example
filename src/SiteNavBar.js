@@ -9,7 +9,7 @@ const SiteNavBar = () => {
   return(
     <div className="navbar">
       <a href="https://www.swmmReact.org" >swmmReact</a>
-      <a href="https://www.swmmjs.org" >swmm-js</a>
+      <a href="https://github.com/swmm-js" >swmm-js</a>
     </div>
   )
 };

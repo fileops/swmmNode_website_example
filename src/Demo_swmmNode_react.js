@@ -22,7 +22,7 @@ const Demo_swmmNode_react = () => {
         <p><a href='https://github.com/swmm-js/swmmNode'>https://github.com/swmm-js/swmmNode</a>
         </p> 
         <p>or from npm: </p>
-        <p><a href='https://www.npmjs.com/package/@swmm-js/swmm-node'>https://www.npmjs.com/package/@swmm-js/swmm-node</a></p>
+        <p><a href='https://www.npmjs.com/package/@fileops/swmm-node'>https://www.npmjs.com/package/@fileops/swmm-node</a></p>
         <p>or just download this web page and study it:</p> 
         <p><a href='https://github.com/swmm-js/swmmNode_website_example'>https://github.com/swmm-js/swmmNode_website_example</a></p>
         <p>

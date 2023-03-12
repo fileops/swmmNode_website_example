@@ -3,7 +3,7 @@
 import './App.css'
 import DisplayOutAsText from './DisplayOutAsText'
 import {useRef, useState} from 'react'
-import { SwmmOut } from "@swmm-js/swmm-node"
+import { SwmmOut } from "@fileops/swmm-node"
 
 function BaseInterface() {
   const inputRef = useRef(null)

@@ -1,5 +1,5 @@
 // DisplayOutAsText.js
-import { SwmmOut } from "@swmm-js/swmm-node"
+import { SwmmOut } from "@fileops/swmm-node"
 import { useState, useEffect } from "react"
 
 export default function DisplayOutAsText({swmmData}) {
